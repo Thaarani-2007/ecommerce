@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Quizzes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-bottom:1000px;
+            background-color: gray;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-bottom:10px;
+        }
+
+      
+
+        .quiz-item {
+            width: 250px;
+            margin-bottom: 10px;
+            margin -left: 40px; 
+        }
+
+        .quiz-link {
+            font-family: 'Roboto', sans-serif;
+            
+            font-width:20px;
+            text-decoration: none;
+            
+        
+        }
+
+        .quiz-subject{
+            padding-bottom:15px;
+            width: 250px;
+            margin-bottom: 15px;
+            
+            
+        }
+        .quiz{
+            padding-bottom:3px;
+            padding-top:3px;
+
+        }
+        .flexbox{
+            
+            
+            display:flex;
+            flex-direction:row;
+            
+            
+           
+        }
+    </style>
+</head>
+
+<body>
+  
+    <header>
+        <h1>Welcome, {{name}} <a href= "/logout/">  -Logout</a> </h1>
+    </header>
+        <br>
+  
+
+
+    <div class="container">
+       
+       <div class=> 
+        <header class="quiz">
+            <h1>Available Quizzes</h1>
+        </header>
+        <ul class="quiz-list">
+            {% for item in items %}
+         <div class="flexbox"> 
+           <div class="subject"> 
+            <li class="quiz-subject">
+                {{item.Category}}      
+                </li>
+           </div>
+           
+        <div class="quiz-subject">
+             {{item.slug}} 
+
+        </div> 
+       
+        <div class= "quiz-subject">
+            <a href="/quiz/{{topic.id}}"  class="quiz-link" style="text-align:center;"> attend quiz  </a>
+         </div>
+    </div>
+            {% endfor %}
+
+
+
+
+
+            
+            {% comment %} <li class="quiz-item">
+                <a href="/quiz/2" class="quiz-link">Quiz 2</a>
+            </li>
+            <li class="quiz-item">
+                <a href="/quiz/3" class="quiz-link">Quiz 3</a>
+            </li> {% endcomment %}
+            <!-- Add more quiz items as needed -->
+        </ul>
+       </div> 
+    </div>
+
+     {% comment %} <h1>Available Quizzes</h1>
+
+    <h2>Subjects:</h2>
+    <ul>
+        {% for subject in subjects %}
+        <a> href="/quiz/{{subject.id}}" {{ subject.name }}</a>
+        {% endfor %}
+    </ul>
+
+    <h2>Topics:</h2>
+    <ul>
+        {% for topic in topics %}
+        <li>{{ topic.name }} (Subject: {{ topic.subject.name }})</li>
+        {% endfor %}
+    </ul> {% endcomment %}
+
+    {% comment %} <h2>Questions:</h2>
+    <ul>
+        {% for question in questions %}
+        <li>{{ question.question_text }} (Topic: {{ question.topic.name }}, Subject: {{ question.topic.subject.name }})</li>
+    </ul>
+        {% endfor %} {% endcomment %}
+       
+</body>
+
+</html>

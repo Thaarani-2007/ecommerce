@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        header {
+            background-color: #007BFF;
+            padding: 15px;
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #ffffff;
+        }
+
+        h2 {
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .contact-button {
+            background-color: #007BFF;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;}
+        
+        .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .is-sold {
+            color: #dc3545;
+        }
+
+        .created-info {
+            color: #6c757d;
+        }
+
+        .no-items {
+            color: #888;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .join-button{
+            background-color:white;
+            color:rgb(51, 171, 226);
+            border-color:rgb(42, 165, 226);
+            border-style:solid;
+            padding-top:9px;
+            padding-left:10px;
+            padding-bottom:9px ;
+            padding-right:10px;
+            border-radius: 6px;
+            cursor:pointer;
+            margin-right:5px;
+            transition: background-color 1s, color 1s , padding-left 1s, padding-right 1s, 
+            padding-top 1s, padding-bottom 1s;
+            vertical-align: top;
+          }
+        
+          .join-button:hover{
+            background-color:blue;
+            color:white;
+            border: none;
+            padding-top:20px;
+            padding-left:20px;
+            padding-bottom:20px ;
+            padding-right:20px;
+        
+          }
+        
+          .join-button:active{
+            opacity:0.6;
+          }
+    </style>
+</head>
+<body>
+
+ 
+<header>
+    <h1>Items List</h1>    
+    <a href="{% url 'newitem' %}" >  
+        <button class="join-button" > NEW ITEM </button>
+    </a>
+    <a href="{% url 'browse' %}" >  
+        <button class="join-button" > BROWSE </button>
+    </a>
+</header>
+
+{% if items %}
+    <ul>
+        {% for item in items %}
+            <li>
+                <h2>{{ item.name }}</h2>
+                <p>Category: {{ item.Category.name }}</p>
+                <p>Description: {{ item.description }}</p>
+                <p class="price">Price: &#x20B9;{{ item.price }}</p>
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }} Image" width="200" height="150">
+                {% endif %}
+                <p class="is-sold">Status: {% if item.is_sold %}Sold{% else %}Available{% endif %}</p>
+                <p class="created-info">Seller: {{ item.created_by.first_name.title }} | Created at: {{ item.created_at }}</p>
+                
+                <a href="/edit/{{item.slug}}" >  
+                <button class="contact-button">EDIT</button>
+                </a>
+            
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="no-items">No items available.</p>
+{% endif %}
+</body>
+</html>
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .is-sold {
+            color: #dc3545;
+        }
+
+        .created-info {
+            color: #6c757d;
+        }
+
+        .no-items {
+            color: #888;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Items List</h1>
+
+{% if items %}
+    <ul>
+        {% for item in items %}
+            <li>
+                <h2>{{ item.name }}</h2>
+                <p>Category: {{ item.Category }}</p>
+                <p>Description: {{ item.description }}</p>
+                <p class="price">Price: ${{ item.price }}</p>
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }} Image">
+                {% endif %}
+                <p class="is-sold">Status: {% if item.is_sold %}Sold{% else %}Available{% endif %}</p>
+                <p class="created-info">Created by: {{ item.created_by.username }} | Created at: {{ item.created_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="no-items">No items available.</p>
+{% endif %}
+
+</body>
+</html> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .no-items {
+            color: #878;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Items List</h1>
+
+{% if items %}
+    <ul>
+        {% for item in items %}
+            <li>
+                <h2>{{ item.name }}</h2>
+                <p>Category: {{ item.Category }}</p>
+                <p>Description: {{ item.description }}</p>
+                <p>Price: ${{ item.price }}</p>
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }} Image">
+                {% endif %}
+                <p>Is Sold: {{ item.is_sold }}</p>
+                <p>Created by: {{ item.created_by.username }}</p>
+                <p>Created at: {{ item.created_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="no-items">No items available.</p>
+{% endif %}
+
+</body>
+</html> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items List</title>
+</head>
+<body>
+
+<h1>Items List</h1>
+
+{% if items %}
+    <ul>
+        {% for item in items %}
+            <li>
+                <h2>{{ item.name }}</h2>
+                <p>Category: {{ item.Category }}</p>
+                <p>Description: {{ item.description }}</p>
+                <p>Price: ${{ item.price }}</p>
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }} Image">
+                {% endif %}
+                <p>Is Sold: {{ item.is_sold }}</p>
+                <p>Created by: {{ item.created_by.username }}</p>
+                <p>Created at: {{ item.created_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No items available.</p>
+{% endif %}
+
+</body>
+</html> {% endcomment %}
